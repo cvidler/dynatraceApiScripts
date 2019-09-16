@@ -28,7 +28,7 @@ function restApiGet {
         if ( $result.Headers["X-RateLimit-Remaining"] = 0 ) { Write-Output $result.Headers["X-RateLimit-Reset"]; Sleep 1000 }
         $result | ConvertFrom-Json
     } 
-    catch { "Exception: \n $_ \n $result"+$result.Headers } 
+    catch { Write-Host "Exception: \n $_ \n ${result} ${result.Headers}" } 
     
     return $result
 }
@@ -155,7 +155,8 @@ function changeMonitors {
 
 
 
-
+# force TLS1.2 connectivity as it's now required by Dynatrace
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 #start of main code
 
