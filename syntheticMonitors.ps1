@@ -1,4 +1,4 @@
-[CmdletBinding()] 
+#[CmdletBinding()] 
 #command line params:
 #search - search string to filter monitors on.
 #enabled - to change the state of the filtered monitors.
@@ -11,10 +11,9 @@
 #
 
 # Configuration
-
-$env = "xxx"
-$baseurl = "https://xxx/e/$env/api/v1/synthetic"
-$token = "xxx"
+# in private.ps1 include 
+# - $token = API token, and 
+# - $baseurl = https://xxx.live.dynatrace.com/ (SaaS) or https://fqdn/e/xxx/ (Managed)
 
 
 # Functions
@@ -159,6 +158,11 @@ function changeMonitors {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 #start of main code
+. C:\Users\christopher.vidler\Documents\Git\dynatraceApiScripts\private.ps1
+$token = getToken
+$baseurl = getBaseURL
+$baseurl = $baseurl + "api/v1/synthetic"
+
 
 #parse parameters
 Write-Verbose "search [$search] usename [$usename] regex [$regex] enabled [$enabled]"

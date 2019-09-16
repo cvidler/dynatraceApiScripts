@@ -1,4 +1,5 @@
-[CmdletBinding()] 
+#[CmdletBinding()]
+
 #command line params:
 #search - search string to filter monitors on.
 #enabled - to change the state of the filtered monitors.
@@ -18,8 +19,7 @@
 #or
 #$baseurl = "https://xxx.live.dynatrace.com/api/config/v1"
 
-$token = "xxx"    #needs read/write configuration permissions
-
+#$token = "xxx"    #needs read/write configuration permissions
 
 # Functions
 
@@ -80,6 +80,11 @@ function getAllDashboardDetails {
 
 # force TLS1.2 connectivity as it's now required by Dynatrace
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+. C:\Users\christopher.vidler\Documents\Git\dynatraceApiScripts\private.ps1
+$token = getToken
+$baseurl = getBaseURL
+$baseurl = $baseurl + "api/config/v1"
+
 
 ""
 "Dynatrce Dashboard API Script"
